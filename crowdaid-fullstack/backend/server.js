@@ -22,12 +22,13 @@ const allowedOrigins = [
 ].filter(Boolean); // removes undefined if FRONTEND_URL not set
 
 app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (Postman, mobile apps, etc.)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error(`CORS blocked: ${origin}`));
-  },
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'http://127.0.0.1:5173',
+    'https://crowdaids.netlify.app',
+    process.env.FRONTEND_URL,
+  ].filter(Boolean),
   credentials: true,
 }));
 
